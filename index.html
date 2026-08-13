@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disability Inclusion Profile Preparation Assistant</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#app" class="skip-link">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a href="#/" class="brand">
+        <span class="brand-title">DIP Preparation Assistant</span>
+        <span class="brand-sub">An AI-assisted Disability Inclusion Profile preparation and evidence-organising tool</span>
+      </a>
+      <nav class="main-nav">
+        <a href="#/" class="btn-nav">Dashboard</a>
+        <a href="#/about" class="btn-nav">About &amp; Privacy</a>
+        <a href="#/admin" class="btn-nav">Admin / Content</a>
+      </nav>
+    </div>
+    <div class="not-official-banner">
+      This tool is <strong>not</strong> the Department of Education's DIFS Portal and is not an official or approved Department system. Data you enter stays only in this browser (local storage) &mdash; nothing is uploaded anywhere.
+    </div>
+  </header>
+
+  <main id="app" class="app-main"></main>
+
+  <footer class="site-footer">
+    <p><strong>AI-assisted preparation document. Not an official Victorian Department of Education Disability Inclusion Profile.</strong></p>
+    <p>Built around the Department's published <a href="https://www2.education.vic.gov.au/pal/disability-inclusion-profile" target="_blank" rel="noopener">Disability Inclusion Profile policy and guidance</a>. Always confirm current requirements on the Department's website.</p>
+  </footer>
+
+  <div id="privacyModal" class="modal-overlay" hidden>
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+      <h2 id="privacyTitle">Before you enter student information</h2>
+      <p>This tool is not the Department of Education's DIFS Portal. Before entering personal, health or disability information, ensure your school has approved the use of this software and that its privacy, information security and records-management requirements have been met.</p>
+      <p>All information you enter is stored only in this browser's local storage on this device. It is not sent to any server by this tool. Clearing your browser data will permanently delete it. Use the Export feature to keep a copy.</p>
+      <button class="btn btn-primary btn-big" data-action="acknowledge-privacy">I understand, continue</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

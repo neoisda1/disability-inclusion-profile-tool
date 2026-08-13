@@ -1,0 +1,46 @@
+name: Check Department source pages for changes
+
+on:
+  schedule:
+    # Every Monday 20:00 UTC (~ Tue morning Melbourne time)
+    - cron: "0 20 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run source check
+        id: check
+        run: |
+          python3 scripts/check_department_source.py | tee check-output.txt
+          if grep -q "^CHANGED=true$" check-output.txt; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open issue for review
+        if: steps.check.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Department Disability Inclusion Profile page(s) changed - review needed" \
+            --body-file change-summary.md
+
+      - name: Commit updated hash tracking file
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/source-tracking.json
+          git diff --cached --quiet || git commit -m "chore: update Department source-page hash tracking [skip ci]"
+          git push

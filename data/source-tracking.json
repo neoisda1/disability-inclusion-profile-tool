@@ -1,0 +1,10 @@
+{
+  "note": "Used only by the .github/workflows/check-department-source.yml scheduled Action to detect when the Department changes these pages. It does NOT store any student data. When a hash changes, the workflow opens a GitHub Issue for a human to review - it never edits data/content.json automatically.",
+  "pages": [
+    { "id": "policy", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/policy", "lastHash": "" },
+    { "id": "guidance-purpose", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/purpose-disability-inclusion-profile-meeting", "lastHash": "" },
+    { "id": "guidance-supporting-info", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/supporting-information-required-disability-inclusion", "lastHash": "" },
+    { "id": "guidance-identify", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/identifying-students-undertake-disability-inclusion", "lastHash": "" },
+    { "id": "resources", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/resources", "lastHash": "" }
+  ]
+}

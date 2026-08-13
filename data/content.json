@@ -1,0 +1,219 @@
+{
+  "meta": {
+    "toolName": "Disability Inclusion Profile Preparation Assistant",
+    "shortDisclaimer": "An AI-assisted Disability Inclusion Profile preparation and evidence-organising tool. Not an official Department of Education system, the DIFS Portal, or an approved/accredited Department application.",
+    "lastReviewed": "2026-08-13",
+    "primarySourceUrl": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile",
+    "sourceUrls": [
+      { "id": "policy", "title": "Disability Inclusion Profile \u2013 Policy", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/policy" },
+      { "id": "guidance-index", "title": "Disability Inclusion Profile \u2013 Guidance (table of contents)", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance" },
+      { "id": "guidance-purpose", "title": "The purpose of a Disability Inclusion Profile meeting and process", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/purpose-disability-inclusion-profile-meeting" },
+      { "id": "guidance-supporting-info", "title": "Supporting information for the Disability Inclusion Profile", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/supporting-information-required-disability-inclusion" },
+      { "id": "guidance-identify", "title": "Identifying students to undertake a Disability Inclusion Profile", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/identifying-students-undertake-disability-inclusion" },
+      { "id": "resources", "title": "Disability Inclusion Profile \u2013 Resources", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/resources" },
+      { "id": "domain-table-pdf", "title": "Disability Inclusion Profile \u2013 Functional Needs Domain Table (PDF)", "url": "https://content.sdp.education.vic.gov.au/media/disability-inclusion-functional-needs-domain-table-1417" },
+      { "id": "level-of-adjustment-pdf", "title": "Disability Inclusion Profile \u2013 Level of Adjustment (PDF)", "url": "https://content.sdp.education.vic.gov.au/media/disability-inclusion-level-of-adjustment-1421" },
+      { "id": "asist", "title": "Profile Adjustments and Supporting Information Summary Tool (Profile ASIST)", "url": "https://content.sdp.education.vic.gov.au/media/profile-adjustments-and-supporting-information-summary-tool-2086" },
+      { "id": "asist-example", "title": "Profile ASIST \u2013 Annotated Example", "url": "https://content.sdp.education.vic.gov.au/media/disability-inclusion-profile-asist-annotated-example-2880" },
+      { "id": "supporting-info-guidance-doc", "title": "Supporting information guidance (DOCX)", "url": "https://content.sdp.education.vic.gov.au/media/disability-inclusion-profile-supporting-information-guidance-1414" },
+      { "id": "profile-tips", "title": "Disability Inclusion Profile: Teacher Identification of Personalised Strategies (Profile TIPS)", "url": "https://content.sdp.education.vic.gov.au/media/disability-inclusion-profile-teacher-identification-of-personalised-strategies-3147" },
+      { "id": "difs-portal-guide", "title": "DIFS Portal User Guide (PDF)", "url": "https://stdifsapiprodae7erpys.blob.core.windows.net/public-documents/DIFS-Portal-User-Guide-Schools.pdf" },
+      { "id": "tier3-funding", "title": "Disability Inclusion \u2013 Tier 3 student-level funding", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-funding-support/guidance/tier-3-student-level-funding" }
+    ],
+    "verificationNote": "Domain names, the 6/31 structure, adjustment dimensions (personalisation/frequency/intensity), the 4 adjustment-level names, and the supporting-information rules below are drawn directly from the current published Department policy and guidance pages listed above (last checked on the date shown). The Functional Needs Domain Table and Level of Adjustment documents are published only as PDFs that could not be machine-verified word-for-word when this content was built. The starter 'activities' listed under each domain are ILLUSTRATIVE PLACEHOLDERS ONLY, are NOT verified against the official Functional Needs Domain Table, and must be reviewed/replaced by a school admin via Admin \u2192 Content before being relied on for an actual profile meeting."
+  },
+  "adjustmentDimensions": [
+    {
+      "id": "personalisation",
+      "name": "Personalisation",
+      "description": "The extent to which adjustments are tailored in response to the student's functional needs.",
+      "sourceId": "guidance-purpose"
+    },
+    {
+      "id": "frequency",
+      "name": "Frequency",
+      "description": "The occurrence of adjustments over time.",
+      "sourceId": "guidance-purpose"
+    },
+    {
+      "id": "intensity",
+      "name": "Intensity",
+      "description": "The amount and type of resources required to implement the adjustment, including planning and collaboration, staff support, tools and equipment.",
+      "sourceId": "guidance-purpose"
+    }
+  ],
+  "adjustmentLevels": [
+    {
+      "id": "differentiated",
+      "name": "Differentiated",
+      "order": 1,
+      "generalDescription": "Generally reflects lower personalisation, frequency and intensity than the levels below. Often able to be described verbally at the profile meeting without extensive documentation.",
+      "sourceId": "guidance-supporting-info"
+    },
+    {
+      "id": "supplementary",
+      "name": "Supplementary",
+      "order": 2,
+      "generalDescription": "Reflects a degree of personalisation, frequency and intensity above differentiated. Like the differentiated level, may often be described verbally without extensive documentation.",
+      "sourceId": "guidance-supporting-info"
+    },
+    {
+      "id": "substantial",
+      "name": "Substantial",
+      "order": 3,
+      "generalDescription": "Reflects a higher degree of personalisation, frequency and/or intensity. Supporting documentation is generally required to confirm this level matches the student's demonstrated functional needs.",
+      "sourceId": "guidance-supporting-info"
+    },
+    {
+      "id": "extensive",
+      "name": "Extensive",
+      "order": 4,
+      "generalDescription": "Reflects the highest degree of personalisation, frequency and/or intensity. Supporting documentation is generally required to confirm this level matches the student's demonstrated functional needs.",
+      "sourceId": "guidance-supporting-info"
+    }
+  ],
+  "adjustmentTiers": [
+    { "id": "school-wide", "name": "School-wide", "description": "Universal strategies benefiting all students.", "sourceId": "policy" },
+    { "id": "targeted", "name": "Targeted", "description": "Small group interventions.", "sourceId": "policy" },
+    { "id": "personalised", "name": "Personalised", "description": "Individual student supports.", "sourceId": "policy" }
+  ],
+  "domains": [
+    {
+      "id": "learning-applying-knowledge",
+      "name": "Learning and Applying Knowledge",
+      "tagline": "How the student learns",
+      "sourceId": "guidance-purpose",
+      "activities": [
+        { "id": "la-1", "name": "Reading and comprehending text", "verified": false },
+        { "id": "la-2", "name": "Written expression", "verified": false },
+        { "id": "la-3", "name": "Numeracy / calculation tasks", "verified": false },
+        { "id": "la-4", "name": "Problem solving and decision making", "verified": false },
+        { "id": "la-5", "name": "Sustaining attention and focus for learning tasks", "verified": false }
+      ]
+    },
+    {
+      "id": "general-tasks-demands",
+      "name": "General Tasks and Demands",
+      "tagline": "How the student goes about their day",
+      "sourceId": "guidance-purpose",
+      "activities": [
+        { "id": "gt-1", "name": "Following a routine / transitioning between activities", "verified": false },
+        { "id": "gt-2", "name": "Organising and planning tasks", "verified": false },
+        { "id": "gt-3", "name": "Managing stress and coping with demands", "verified": false },
+        { "id": "gt-4", "name": "Completing multi-step tasks independently", "verified": false },
+        { "id": "gt-5", "name": "Responding to changes in routine", "verified": false }
+      ]
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "tagline": "How the student shares information",
+      "sourceId": "guidance-purpose",
+      "activities": [
+        { "id": "co-1", "name": "Expressing needs and wants", "verified": false },
+        { "id": "co-2", "name": "Understanding spoken instructions", "verified": false },
+        { "id": "co-3", "name": "Using assistive/augmentative communication", "verified": false },
+        { "id": "co-4", "name": "Participating in group discussion", "verified": false },
+        { "id": "co-5", "name": "Understanding non-verbal communication/social cues", "verified": false }
+      ]
+    },
+    {
+      "id": "self-care",
+      "name": "Self-Care",
+      "tagline": "How the student looks after themselves",
+      "sourceId": "guidance-purpose",
+      "activities": [
+        { "id": "sc-1", "name": "Toileting and personal hygiene", "verified": false },
+        { "id": "sc-2", "name": "Eating and drinking (including meal-time support)", "verified": false },
+        { "id": "sc-3", "name": "Dressing and undressing (e.g. for sport/uniform changes)", "verified": false },
+        { "id": "sc-4", "name": "Managing personal safety and health routines at school", "verified": false },
+        { "id": "sc-5", "name": "Managing medication or health procedures at school", "verified": false }
+      ]
+    },
+    {
+      "id": "interpersonal-interactions",
+      "name": "Interpersonal Interactions",
+      "tagline": "How the student engages with others",
+      "sourceId": "guidance-purpose",
+      "activities": [
+        { "id": "ip-1", "name": "Initiating and maintaining peer relationships", "verified": false },
+        { "id": "ip-2", "name": "Working collaboratively in groups", "verified": false },
+        { "id": "ip-3", "name": "Regulating emotions/behaviour in social situations", "verified": false },
+        { "id": "ip-4", "name": "Interacting appropriately with adults/staff", "verified": false },
+        { "id": "ip-5", "name": "Participating in unstructured social time (e.g. recess/lunch)", "verified": false }
+      ]
+    },
+    {
+      "id": "mobility",
+      "name": "Mobility",
+      "tagline": "How the student moves",
+      "sourceId": "guidance-purpose",
+      "activities": [
+        { "id": "mo-1", "name": "Moving around the classroom and school grounds", "verified": false },
+        { "id": "mo-2", "name": "Using stairs/ramps/school infrastructure", "verified": false },
+        { "id": "mo-3", "name": "Fine motor tasks (e.g. handwriting, using equipment)", "verified": false },
+        { "id": "mo-4", "name": "Gross motor participation (e.g. PE, excursions)", "verified": false },
+        { "id": "mo-5", "name": "Transport and access to/from school activities", "verified": false },
+        { "id": "mo-6", "name": "Positioning and seating needs", "verified": false }
+      ]
+    }
+  ],
+  "supportingInformation": {
+    "maxRecommendedDocuments": 15,
+    "principle": "Supporting information should be existing school-based documentation, not created solely for the profile. Quality and relevance matter more than quantity.",
+    "sourceId": "guidance-supporting-info",
+    "goodSources": [
+      "Individual Education Plan (IEP) / Individual Learning Plan (ILP)",
+      "Student Support Group (SSG) minutes",
+      "Teaching and learning program / classroom planning documents",
+      "A summary snapshot of strengths, aspirations and adjustments in place",
+      "Student health support plans",
+      "Behaviour support plans",
+      "Personal hygiene learning plans",
+      "Transition Learning and Development Statements / transition plans",
+      "Attendance plans",
+      "Career action plans",
+      "Cultural support plans",
+      "Other student-specific plans (communication, transfer/mobility, meal/toileting, safety plans)",
+      "Specialist/allied health reports where already held by the school",
+      "NDIS plan or therapy/assessment/progress reports (optional, not a substitute for school-based evidence)"
+    ],
+    "excludedSources": [
+      "Budget information relating to NDIS plans",
+      "Whole excerpts/records showing behavioural concerns or presentations",
+      "Documents disclosing details of abuse or trauma"
+    ],
+    "notes": [
+      "Educational management system notes (e.g. Compass, Sentral) must be reviewed for relevance and privacy before use \u2013 only 'need to know' adjustment information should be included.",
+      "Digital evidence (photo/video) should not be used to highlight a student's disability or presentation and must have appropriate consent.",
+      "No third-party software (other than the DIFS Portal) is accredited by the Department for managing the profile process \u2013 school approval, privacy impact assessment and ST4S risk review are required before use of any such tool."
+    ]
+  },
+  "lowAttendancePathway": {
+    "sourceId": "guidance-supporting-info",
+    "requiredEvidence": [
+      "Attendance patterns",
+      "Barriers to attendance",
+      "Adjustments in place",
+      "Re-engagement strategies",
+      "Monitoring",
+      "Future planning"
+    ],
+    "note": "Facilitators apply a flexible approach for students with low attendance, placing more emphasis on evidence of ongoing adjustment needs and re-engagement planning. Tier 3 funding may not be allocated if the student is not currently attending school."
+  },
+  "processSteps": [
+    "Identify the student to undertake a profile, with parents/carers and/or the SSG",
+    "Register a profile request with the facilitator service (DIFS)",
+    "Complete the profile request: screening questions, profile information form, and upload supporting information",
+    "Schedule the profile meeting",
+    "Prepare for the meeting (school, parents/carers and student)",
+    "Participate in the meeting, led by a trained Disability Inclusion Facilitator",
+    "Provide additional supporting information if requested (within 5 school days)",
+    "Receive the finalised profile and School Resource Notification via the DIFS Portal",
+    "Discuss the finalised report with the SSG and update the IEP",
+    "Continue planning, implementing and monitoring adjustments regardless of outcome"
+  ],
+  "nccd": {
+    "note": "The Disability Inclusion Profile and the Nationally Consistent Collection of Data on School Students with Disability (NCCD) are related but separate processes. A Profile outcome does not automatically determine a student's NCCD adjustment level, and evidence gathered here may separately help inform NCCD professional judgement."
+  }
+}
