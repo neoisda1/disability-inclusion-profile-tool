@@ -1,8 +1,8 @@
 import { findSource } from "./content.js";
 import { escapeHtml, nl2br } from "./utils.js";
 import {
-  scanRedFlags, activityCompleteness, makeMoreSpecific, suggestPossibleLevel,
-  qualityChecklist, overallProgress, evidenceGaps, findDuplicateEvidence, buildDraft,
+  scanRedFlags, scanStudentRedFlags, activityCompleteness, makeMoreSpecific, suggestPossibleLevel,
+  qualityChecklist, overallProgress, evidenceGaps, findDuplicateEvidence, buildDraft, dashboardInsights,
 } from "./rules.js";
 
 export const STEPS = [
@@ -56,17 +56,26 @@ function bind(path, value, type, extraAttrs) {
 }
 
 // ---------- Dashboard ----------
-export function renderDashboard(students) {
+export function renderDashboard(students, content) {
   const cards = students.length
     ? students.map((s) => {
         const pct = overallProgress(s);
+        const insights = dashboardInsights(s, content);
         return `<div class="card">
           <h3>${escapeHtml(s.profile.name || "(unnamed student)")}</h3>
           <p class="small-muted">${escapeHtml(s.profile.yearLevel || "")} ${s.profile.school ? "&middot; " + escapeHtml(s.profile.school) : ""}</p>
           <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:${pct}%">${pct}% prepared</div></div>
           <p class="hint">This is a preparation-completeness indicator only. It does not imply Profile eligibility or funding.</p>
+          <ul class="insight-list">
+            <li>${insights.activitiesCount} activity/activities marked relevant</li>
+            <li>${insights.evidenceCount} evidence item(s) entered${insights.evidenceGapsCount ? ` &mdash; <span class="tag tag-partial">${insights.evidenceGapsCount} gap(s)</span>` : ""}</li>
+            <li>Quality checklist: ${insights.qualityMet}/${insights.qualityTotal} areas met</li>
+            <li>${insights.redFlagsCount ? `<span class="tag tag-none">${insights.redFlagsCount} wording flag(s) to review</span>` : "No wording flags detected"}</li>
+            <li>${insights.lastDraftGenerated ? "Draft generated " + new Date(insights.lastDraftGenerated).toLocaleDateString() : "No draft generated yet"}</li>
+          </ul>
           <div class="button-grid">
             <a class="btn btn-primary btn-big" href="#/student/${s.id}/profile">Open</a>
+            <a class="btn btn-secondary" href="#/student/${s.id}/export">Go to exports</a>
             <button class="btn btn-secondary" data-action="export-student-json" data-id="${s.id}">Export backup (JSON)</button>
             <button class="btn btn-danger" data-action="delete-student" data-id="${s.id}">Delete</button>
           </div>
@@ -546,16 +555,7 @@ export function renderCheckStep(student) {
   const checks = qualityChecklist(student);
   const tag = (ok) => ok === "ok" || ok === true ? '<span class="tag tag-ok">&#10003;</span>' : ok === "partial" ? '<span class="tag tag-partial">&#9888; more detail needed</span>' : '<span class="tag tag-none">missing</span>';
 
-  const allText = [];
-  allText.push(student.profile.strengths, student.profile.background);
-  allText.push(student.parentCarer.observations, student.parentCarer.concerns);
-  (student.specialists || []).forEach((s) => allText.push(s.recommendation));
-  Object.values(student.domainData || {}).forEach((d) => Object.values(d.activities || {}).forEach((a) => {
-    allText.push(a.functionalNeed, a.impactOnParticipation, a.currentAdjustment, a.personalisation, a.frequency, a.intensity);
-  }));
-  const flags = [];
-  allText.filter(Boolean).forEach((t) => flags.push(...scanRedFlags(t)));
-  const uniqueFlags = Array.from(new Map(flags.map((f) => [f.phrase + f.type, f])).values());
+  const uniqueFlags = scanStudentRedFlags(student);
 
   return `
     <div class="card">
@@ -616,12 +616,30 @@ export function renderExportStep(student) {
   return `
     <div class="card">
       <h2>Export</h2>
-      <p class="hint">Every export is clearly labelled as an AI-assisted preparation document, not an official Disability Inclusion Profile.</p>
+      <p class="hint">Exports are clearly labelled as AI-assisted preparation documents, not an official Disability Inclusion Profile (the SSG meeting preparation document omits this line by request, since it is an internal working document).</p>
+
+      <h3>For the SSG meeting</h3>
       <div class="button-grid">
         <button class="btn btn-primary btn-big" data-action="export-draft-doc">Student Profile Draft (DOC)</button>
         <button class="btn btn-primary btn-big" data-action="export-ssg-doc">SSG Meeting Preparation (DOC)</button>
-        <button class="btn btn-primary btn-big" data-action="export-matrix-csv">Evidence Matrix (CSV/Excel)</button>
         <button class="btn btn-secondary btn-big" data-action="export-print-pdf">Print / Save as PDF</button>
+      </div>
+
+      <h3>For parents/carers</h3>
+      <div class="button-grid">
+        <button class="btn btn-primary btn-big" data-action="export-parent-summary-doc">Parent/Carer Discussion Summary (DOC)</button>
+      </div>
+
+      <h3>For facilitators and staff</h3>
+      <div class="button-grid">
+        <button class="btn btn-primary btn-big" data-action="export-facilitator-doc">Facilitator Meeting Preparation (DOC)</button>
+        <button class="btn btn-primary btn-big" data-action="export-adjustment-summary-doc">Adjustment Summary (DOC)</button>
+      </div>
+
+      <h3>Evidence and backup</h3>
+      <div class="button-grid">
+        <button class="btn btn-secondary btn-big" data-action="export-matrix-csv">Evidence Matrix (CSV/Excel)</button>
+        <button class="btn btn-secondary btn-big" data-action="export-gap-report-csv">Evidence Gap Report (CSV/Excel)</button>
         <button class="btn btn-secondary btn-big" data-action="export-student-json" data-id="${student.id}">Full backup (JSON)</button>
       </div>
     </div>

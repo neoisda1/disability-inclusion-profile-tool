@@ -210,6 +210,39 @@ export function evidenceGaps(student, content) {
   return gaps;
 }
 
+// Gathers every free-text field entered for a student and runs the red-flag scanner
+// over all of it. Used by both the "Check my profile" page and the dashboard.
+export function scanStudentRedFlags(student) {
+  const allText = [];
+  allText.push(student.profile.strengths, student.profile.background);
+  allText.push(student.parentCarer.observations, student.parentCarer.concerns);
+  (student.specialists || []).forEach((s) => allText.push(s.recommendation));
+  Object.values(student.domainData || {}).forEach((d) => Object.values(d.activities || {}).forEach((a) => {
+    allText.push(a.functionalNeed, a.impactOnParticipation, a.currentAdjustment, a.personalisation, a.frequency, a.intensity);
+  }));
+  const flags = [];
+  allText.filter(Boolean).forEach((t) => flags.push(...scanRedFlags(t)));
+  return Array.from(new Map(flags.map((f) => [f.phrase + f.type, f])).values());
+}
+
+// A compact set of at-a-glance figures shown on the dashboard card for a student -
+// not a funding or eligibility indicator, just a summary of how much/what has been entered.
+export function dashboardInsights(student, content) {
+  const checks = qualityChecklist(student);
+  const metCount = checks.filter((c) => c.ok === true || c.ok === "ok").length;
+  let activitiesCount = 0;
+  Object.values(student.domainData || {}).forEach((d) => Object.values(d.activities || {}).forEach((a) => { if (a.relevant) activitiesCount++; }));
+  return {
+    qualityMet: metCount,
+    qualityTotal: checks.length,
+    activitiesCount,
+    evidenceCount: (student.evidence || []).length,
+    evidenceGapsCount: evidenceGaps(student, content).length,
+    redFlagsCount: scanStudentRedFlags(student).length,
+    lastDraftGenerated: student.draft && student.draft.lastGenerated,
+  };
+}
+
 export function findDuplicateEvidence(evidenceList) {
   const seen = new Map();
   const duplicates = [];

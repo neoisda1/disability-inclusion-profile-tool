@@ -33,7 +33,7 @@ function render() {
   const parts = hash.split("/").filter(Boolean);
 
   if (parts.length === 0) {
-    appEl.innerHTML = views.renderDashboard(store.listStudents());
+    appEl.innerHTML = views.renderDashboard(store.listStudents(), content);
     return;
   }
   if (parts[0] === "about") {
@@ -334,8 +334,34 @@ document.addEventListener("click", (e) => {
   if (action === "export-ssg-doc") {
     const student = store.getStudent(currentStudentId());
     const draft = rules.buildDraft(student, content);
-    const html = `<h2>Questions for the SSG</h2><ul>${draft.questionsForSSG.map((q) => `<li>${q}</li>`).join("")}</ul>`;
-    exportUtils.exportDoc(`${student.profile.name || "student"}-ssg-prep.doc`, "SSG Meeting Preparation", html);
+    exportUtils.exportDoc(`${student.profile.name || "student"}-ssg-prep.doc`, "SSG Meeting Preparation", renderSSGDocHtml(draft, content), { footer: false });
+    return;
+  }
+  if (action === "export-parent-summary-doc") {
+    const student = store.getStudent(currentStudentId());
+    const draft = rules.buildDraft(student, content);
+    exportUtils.exportDoc(`${student.profile.name || "student"}-parent-summary.doc`, "Discussion summary for parents/carers", renderParentSummaryHtml(draft));
+    return;
+  }
+  if (action === "export-facilitator-doc") {
+    const student = store.getStudent(currentStudentId());
+    const draft = rules.buildDraft(student, content);
+    exportUtils.exportDoc(`${student.profile.name || "student"}-facilitator-prep.doc`, "Facilitator meeting preparation", renderFacilitatorPrepHtml(draft));
+    return;
+  }
+  if (action === "export-adjustment-summary-doc") {
+    const student = store.getStudent(currentStudentId());
+    const draft = rules.buildDraft(student, content);
+    exportUtils.exportDoc(`${student.profile.name || "student"}-adjustment-summary.doc`, "Adjustment summary", renderAdjustmentSummaryHtml(draft));
+    return;
+  }
+  if (action === "export-gap-report-csv") {
+    const student = store.getStudent(currentStudentId());
+    const draft = rules.buildDraft(student, content);
+    const rows = [["Domain", "Activity", "Reason"]];
+    draft.evidenceGaps.forEach((g) => rows.push([g.domainName, g.activityName, g.reason]));
+    if (rows.length === 1) rows.push(["(none)", "(none)", "No evidence gaps detected among activities marked relevant."]);
+    exportUtils.exportCSV(`${student.profile.name || "student"}-evidence-gap-report.csv`, rows);
     return;
   }
   if (action === "export-matrix-csv") {
@@ -360,6 +386,69 @@ document.addEventListener("click", (e) => {
     return;
   }
 });
+
+function renderSSGDocHtml(draft, content) {
+  const ss = draft.studentSummary;
+  let html = `<p><strong>Student:</strong> ${ss.name} &nbsp; <strong>Year level:</strong> ${ss.yearLevel || ""} &nbsp; <strong>School:</strong> ${ss.school || ""}</p>`;
+  html += `<h2>Department end-to-end process</h2><ol>${content.processSteps.map((s) => `<li>${s}</li>`).join("")}</ol>`;
+  html += `<h2>Questions for the SSG</h2><ul>${draft.questionsForSSG.map((q) => `<li>${q}</li>`).join("") || "<li>None generated</li>"}</ul>`;
+  html += `<h2>Evidence gaps</h2><ul>${draft.evidenceGaps.map((g) => `<li>${g.domainName} \u2192 ${g.activityName}</li>`).join("") || "<li>None detected</li>"}</ul>`;
+  return html;
+}
+
+// Plain-language version for families - avoids jargon like "personalisation"/"intensity".
+function renderParentSummaryHtml(draft) {
+  const ss = draft.studentSummary;
+  let html = `<p>This is a plain-language summary to support our discussion with you. It is based only on information already recorded by the school - please let us know if anything here doesn't match your own experience.</p>`;
+  html += `<h2>About ${ss.name}</h2>
+    <p><strong>Strengths:</strong> ${ss.strengths}</p>
+    <p><strong>Interests and what motivates them:</strong> ${ss.interests} ${ss.motivations}</p>
+    <p><strong>Goals/aspirations:</strong> ${ss.aspirations}</p>`;
+  if (draft.studentVoice.length) {
+    html += `<h2>In their own words</h2>`;
+    draft.studentVoice.forEach((r) => { html += `<p><strong>${r.question}</strong><br>${r.answer}</p>`; });
+  }
+  html += `<h2>What we are currently doing to help at school</h2>`;
+  draft.domainSections.forEach((d) => {
+    d.activities.forEach((a) => {
+      html += `<p><strong>${a.activityName}:</strong> ${a.currentAdjustment}</p>`;
+    });
+  });
+  html += `<h2>What we'd like your input on</h2><ul>${draft.questionsForSSG.map((q) => `<li>${q}</li>`).join("") || "<li>None yet</li>"}</ul>`;
+  return html;
+}
+
+// Key facts staff should be ready to explain to the facilitator during the meeting.
+function renderFacilitatorPrepHtml(draft) {
+  const ss = draft.studentSummary;
+  let html = `<p><strong>Student:</strong> ${ss.name} &nbsp; <strong>Year level:</strong> ${ss.yearLevel || ""} &nbsp; <strong>School:</strong> ${ss.school || ""}</p>
+    <p><strong>Strengths:</strong> ${ss.strengths}</p>`;
+  draft.domainSections.forEach((d) => {
+    html += `<h2>${d.domainName}</h2>`;
+    d.activities.forEach((a) => {
+      html += `<h3>${a.activityName}</h3>
+        <p><strong>Functional need:</strong> ${a.functionalNeed}</p>
+        <p><strong>Adjustment, frequency and intensity:</strong> ${a.currentAdjustment} &mdash; ${a.frequency}, ${a.intensity}</p>
+        <p><strong>Monitoring:</strong> ${a.monitoring}</p>
+        <p><strong>Evidence items linked:</strong> ${a.evidenceCount}</p>
+        <p><strong>Possible level for discussion:</strong> ${a.possibleLevel && a.possibleLevel.message ? a.possibleLevel.message : "Not enough information yet."}</p>`;
+    });
+  });
+  html += `<h2>Evidence gaps to be ready to discuss</h2><ul>${draft.evidenceGaps.map((g) => `<li>${g.domainName} \u2192 ${g.activityName}</li>`).join("") || "<li>None detected</li>"}</ul>`;
+  return html;
+}
+
+// Concise adjustment-only view (no functional-need detail) for quick reference.
+function renderAdjustmentSummaryHtml(draft) {
+  let html = `<table border="1" cellpadding="4" style="border-collapse:collapse;"><tr><th>Domain</th><th>Activity</th><th>Current adjustment</th><th>Frequency</th><th>Intensity</th></tr>`;
+  draft.domainSections.forEach((d) => {
+    d.activities.forEach((a) => {
+      html += `<tr><td>${d.domainName}</td><td>${a.activityName}</td><td>${a.currentAdjustment}</td><td>${a.frequency}</td><td>${a.intensity}</td></tr>`;
+    });
+  });
+  html += `</table>`;
+  return html;
+}
 
 function renderDraftDocHtml(draft) {
   const ss = draft.studentSummary;

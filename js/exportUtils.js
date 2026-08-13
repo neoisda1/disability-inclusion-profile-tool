@@ -27,12 +27,13 @@ export function exportCSV(filename, rows) {
 
 // Produces a .doc file using Word-compatible HTML - opens directly in Microsoft Word,
 // with no extra libraries required.
-export function exportDoc(filename, title, bodyHtml) {
+export function exportDoc(filename, title, bodyHtml, options) {
+  const showFooter = !options || options.footer !== false;
   const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
   <head><meta charset="utf-8"><title>${title}</title></head>
   <body style="font-family:Calibri, Arial, sans-serif; font-size:11pt;">
   <h1>${title}</h1>
-  <p style="color:#7a1f1f;"><em>${EXPORT_FOOTER}</em></p>
+  ${showFooter ? `<p style="color:#7a1f1f;"><em>${EXPORT_FOOTER}</em></p>` : ""}
   ${bodyHtml}
   </body></html>`;
   download(filename, html, "application/msword");
