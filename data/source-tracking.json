@@ -1,10 +1,30 @@
 {
   "note": "Used only by the .github/workflows/check-department-source.yml scheduled Action to detect when the Department changes these pages. It does NOT store any student data. When a hash changes, the workflow opens a GitHub Issue for a human to review - it never edits data/content.json automatically.",
   "pages": [
-    { "id": "policy", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/policy", "lastHash": "" },
-    { "id": "guidance-purpose", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/purpose-disability-inclusion-profile-meeting", "lastHash": "" },
-    { "id": "guidance-supporting-info", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/supporting-information-required-disability-inclusion", "lastHash": "" },
-    { "id": "guidance-identify", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/identifying-students-undertake-disability-inclusion", "lastHash": "" },
-    { "id": "resources", "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/resources", "lastHash": "" }
+    {
+      "id": "policy",
+      "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/policy",
+      "lastHash": "46a831fd61bab671f1a4d33a053c79d7e9b103de45772524a1bc5d9a01d5836c"
+    },
+    {
+      "id": "guidance-purpose",
+      "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/purpose-disability-inclusion-profile-meeting",
+      "lastHash": "021851f9050d13ab8efe805501b0f4d948e0d8b23bf84cb97b71befb88df48ae"
+    },
+    {
+      "id": "guidance-supporting-info",
+      "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/supporting-information-required-disability-inclusion",
+      "lastHash": "fcada911d09704356119ea5554ff960d0f4add8bbef14b63d015e4c30b15503f"
+    },
+    {
+      "id": "guidance-identify",
+      "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/guidance/identifying-students-undertake-disability-inclusion",
+      "lastHash": "e4dd71ff1dd8b48563196c788cf4578410ec2c705ec0eb926514ce05942dda2e"
+    },
+    {
+      "id": "resources",
+      "url": "https://www2.education.vic.gov.au/pal/disability-inclusion-profile/resources",
+      "lastHash": "65d8094d74d3a303d0d44ad8a6215f34a49a58ab5f73b28c76fe41e093725f68"
+    }
   ]
 }
